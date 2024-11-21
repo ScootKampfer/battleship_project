@@ -14,70 +14,83 @@ positionsBateauIA_1_1 = [random.choice(POSITIONSX[-1+longeurB:10-longeurB]) ,ran
 print(positionsBateauIA_1_1)
 #print(positionsBateauIA_1_2)
 
-#partie humain
+#Partie Humain (complet)
 
 print("Bienvenue à Battleship! Il est maintenant temps de choisir tes positions de bateau!\n")
 
-def taketerritory():
+def taketerritory(player):
 
-    global i
-    PositionsprisesHumain.append(str(positionDebut1H))
-    PositionsprisesHumain.append(str(positionFin1H))
-    i += 1
-    print(PositionsprisesHumain)
+    if player == "Humain":
+    
+        global i
+        PositionsprisesHumain.append(str(positionDebutH))
+        PositionsprisesHumain.append(str(positionFinH))
+        i += 1
+        print(PositionsprisesHumain)
+    
+    elif player == "AI":
+
+        print("Code to be put here")
+
 
 def poserbateaujoueur(boatnumber):
     global i 
     i = 0
+    PosValid = False
+    global positionDebutH
+    global positionFinH
+    positionDebutH = list(input("Indiquez la position de départ du bateau à deux places comme ceci (A5 ou B6): "))
+    positionFinH = None
 
     while i < boatnumber:
 
-        global positionDebut1H
-        global positionFin1H
-        positionDebut1H = list(input("Indiquez la position de départ du bateau à deux places comme ceci (A5 ou B6): "))
-        positionFin1H = None
+        while PosValid == False:
+
+            positionDebutH = list(input("Indiquez la position de départ du bateau à deux places comme ceci (A5 ou B6): "))
+            if positionDebutH[0] in POSITIONSX and positionDebutH[1] in POSITIONSY:
+                PosValid = True
 
 
-        while positionFin1H == None:
+        while positionFinH == None:
 
             orientation = input("\nChoisir l'orientation du bateau (Nord, Sud, Est ou Ouest): ")
 
             if orientation == "Nord":
-                if positionDebut1H[1] == '1':
+                if positionDebutH[1] == '1':
 
                     print("Try again pls")
                     continue
                 else:  
-                    positionFin1H = [positionDebut1H[0], str(POSITIONSY.index(positionDebut1H[1]))]
-                    taketerritory()
+                    positionFinH = [positionDebutH[0], str(POSITIONSY.index(positionDebutH[1]))]
+                    taketerritory("Humain")
 
             elif orientation == "Sud":
-                if positionDebut1H[1] == '10':
+                if positionDebutH[1] == '10':
 
                     print("Try again pls")
                     continue
                 else:  
-                    positionFin1H = [positionDebut1H[0], str(POSITIONSY.index(positionDebut1H[1])+2)]
-                    taketerritory()
+                    positionFinH = [positionDebutH[0], str(POSITIONSY.index(positionDebutH[1])+2)]
+                    taketerritory("Humain")
 
             elif orientation == "Est":
-                if positionDebut1H[0] == 'J':
+                if positionDebutH[0] == 'J':
 
                     print("Try again pls")
                     continue
                 else:  
-                    positionFin1H = [POSITIONSX[POSITIONSX.index(positionDebut1H[0]) + 1], positionDebut1H[1]]
-                    taketerritory()
+                    positionFinH = [POSITIONSX[POSITIONSX.index(positionDebutH[0]) + 1], positionDebutH[1]]
+                    taketerritory("Humain")
 
 
             elif orientation == "Ouest":
-                if positionDebut1H[0] == 'A':
+                if positionDebutH[0] == 'A':
 
                     print("Try again pls")
                     continue
                 else:  
-                    positionFin1H = [POSITIONSX[POSITIONSX.index(positionDebut1H[0]) - 1], positionDebut1H[1]]
-                    taketerritory()
+                    positionFinH = [POSITIONSX[POSITIONSX.index(positionDebutH[0]) - 1], positionDebutH[1]]
+                    taketerritory("Humain")
 
 poserbateaujoueur(2)
 
