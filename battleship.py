@@ -29,7 +29,7 @@ while positionFin1H == None:
             print("Try again pls")
             continue
         else:  
-            positionFin1H = [positionDebut1H[0], positionFin1H[positionDebut1H.index()-1]]
+            positionFin1H = [positionDebut1H[0], positionsY[positionDebut1H.index(positionDebut1H[1])-1]]
             print(positionFin1H)
 
     if orientation == "Sud":
@@ -38,11 +38,11 @@ while positionFin1H == None:
             print("Try again pls")
             continue
         else:  
-            positionFin1H = [positionDebut1H[0], positionFin1H[positionDebut1H.index()-1]]
+            positionFin1H = [positionDebut1H[0], positionDebut1H.index()+1]
             print(positionFin1H)
 
     if orientation == "Est":
-        if positionDebut1H[0] == '1':
+        if positionDebut1H[0] == 'J':
 
             print("Try again pls")
             continue
