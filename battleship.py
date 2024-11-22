@@ -5,7 +5,7 @@ POSITIONSX = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 POSITIONSY = ['1','2','3','4','5','6','7','8','9','10']
 PositionsOccupeesBateau = []
 
-#partie choisir des bateaux
+#partie choisir des bateaux (Il reste 'a faire plusieurs bateaux et une verification pour eviter de mettre deux bateaux a la meme place)
 
 def taketerritory():
 
