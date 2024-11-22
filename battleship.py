@@ -51,13 +51,13 @@ def poserbateau(boatlength):
                     PositionsOccupeesBateau.append(str().join(positionFin))
                     n += 1
 
-i = 0
 
-while i < 50:
-    poserbateau(3)
-    print(PositionsOccupeesBateau)
-    PositionsOccupeesBateau.clear()
-    i += 1
+poserbateau(5)
+poserbateau(4)
+poserbateau(3)
+poserbateau(3)
+poserbateau(2)
+print(PositionsOccupeesBateau)
 
 # positionTir = list(input("Ou voulez-vous tirer ex: A1, J9?: ").capitalize())
 
