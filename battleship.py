@@ -1,63 +1,61 @@
 import random
-from time import sleep
 
 POSITIONSX = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 POSITIONSY = ['1','2','3','4','5','6','7','8','9','10']
 PositionsOccupeesBateau = []
 
-#partie choisir des bateaux (Il reste 'a faire plusieurs bateaux et une verification pour eviter de mettre deux bateaux a la meme place)
+def checkterritory():
 
-def taketerritory():
+    global TerritoryVerified
 
-    PositionsOccupeesBateau.append(str().join(positionDebut))
-    PositionsOccupeesBateau.append(str().join(positionFin))
-    print(PositionsOccupeesBateau)
+    for i in PositionsPotentiels:
+        if i in PositionsOccupeesBateau:
+            break
+        PositionsOccupeesBateau.append(str(i))
+    TerritoryVerified = True
+
 
 def poserbateau(boatlength):
-    global positionFin
-    global positionDebut
+
+    global TerritoryVerified
+    global PositionsPotentiels
+    TerritoryVerified = False
     n = 1
     positionFin = []
+    PositionsPotentiels = []
     positionDebut = [random.choice(POSITIONSX[-1+boatlength:11-boatlength]) ,random.choice(POSITIONSY[-1+boatlength:11-boatlength])]
-    PositionsOccupeesBateau.append(str().join(positionDebut))
+    PositionsPotentiels.append(str().join(positionDebut))
     orientation = random.randint(1,4)
-    match orientation:
+    while TerritoryVerified == False:
 
-        case 1: #Nord
-            
-            while n < boatlength:
-                positionFin = [positionDebut[0], str(POSITIONSY[POSITIONSY.index(positionDebut[1])+n])]
-                PositionsOccupeesBateau.append(str().join(positionFin))
-                n += 1
+        while n < boatlength:
 
-        case 2: #Sud
-            
-            while n < boatlength:
-                positionFin = [positionDebut[0], str(POSITIONSY[POSITIONSY.index(positionDebut[1])+n])]
-                PositionsOccupeesBateau.append(str().join(positionFin))
-                n += 1
-        
-        case 3: #Est 
+            match orientation:
 
-            while n < boatlength:
-                positionFin = [POSITIONSX[POSITIONSX.index(positionDebut[0]) + n], positionDebut[1]]
-                PositionsOccupeesBateau.append(str().join(positionFin))
-                n += 1
-        
-        case 4: #Ouest
+                case 1: #Nord
+                    positionFin = [positionDebut[0], str(POSITIONSY[POSITIONSY.index(positionDebut[1])+n])]
+
+                case 2: #Sud
+                    positionFin = [positionDebut[0], str(POSITIONSY[POSITIONSY.index(positionDebut[1])+n])]
                 
-                while n < boatlength:
+                case 3: #Est 
+                    positionFin = [POSITIONSX[POSITIONSX.index(positionDebut[0]) + n], positionDebut[1]]
+                
+                case 4: #Ouest
                     positionFin = [POSITIONSX[POSITIONSX.index(positionDebut[0]) - n], positionDebut[1]]
-                    PositionsOccupeesBateau.append(str().join(positionFin))
-                    n += 1
+  
+            PositionsPotentiels.append(str().join(positionFin))
+            n += 1
 
+        checkterritory()
 
-poserbateau(5)
-poserbateau(4)
-poserbateau(3)
-poserbateau(3)
-poserbateau(2)
-print(PositionsOccupeesBateau)
+while len(PositionsOccupeesBateau) != 17:
+    PositionsOccupeesBateau.clear()
+    poserbateau(5)
+    poserbateau(4)
+    poserbateau(3)
+    poserbateau(3)
+    poserbateau(2)
 
 # positionTir = list(input("Ou voulez-vous tirer ex: A1, J9?: ").capitalize())
 
