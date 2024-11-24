@@ -1,4 +1,5 @@
 import random
+from termcolor import colored
 
 POSITIONSX = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 POSITIONSY = ['1','2','3','4','5','6','7','8','9','10']
@@ -80,7 +81,7 @@ def checkiftouched():
 
     if positionTir in PositionsOccupeesBateau:
         PositionsOccupeesBateau.remove(positionTir)
-        print("Touché")
+        print(colored("Touché", "red"))
 
     else:
         print("Manqué")  
