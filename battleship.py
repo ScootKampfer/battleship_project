@@ -83,8 +83,7 @@ def checkiftouched():
         print("Touché")
 
     else:
-        print("Manqué")
-    
+        print("Manqué")  
 
 while len(PositionsOccupeesBateau) != 17:
     PositionsOccupeesBateau.clear()
