@@ -27,6 +27,7 @@ def poserbateau(boatlength):
     positionDebut = [random.choice(POSITIONSX[-1+boatlength:11-boatlength]) ,random.choice(POSITIONSY[-1+boatlength:11-boatlength])]
     PositionsPotentiels.append(str().join(positionDebut))
     orientation = random.randint(1,4)
+
     while TerritoryVerified == False:
 
         while n < boatlength:
@@ -59,28 +60,34 @@ while len(PositionsOccupeesBateau) != 17:
     poserbateau(2)
 
 while True:
+
     AttackVerified = False
+
     while AttackVerified == False:
         positionTir = list(input("Ou voulez-vous tirer? S'il vous plait entrez les coordonnées comme ça: A1, J9: ").capitalize())
         
         if len(positionTir) < 2:
             continue
+
         if len(positionTir) > 2:
             positionTir[1] = positionTir[1]+positionTir[2]
             positionTir = positionTir [0:2]
+
         if positionTir[0] in POSITIONSX and positionTir[1] in POSITIONSY:
             positionTir = str().join(positionTir)
             AttackVerified = True
+
         if positionTir in PositionsEssayees:
             AttackVerified = False
             continue
-    print(positionTir)
 
+    print(positionTir)
     PositionsEssayees.append(positionTir)
 
     if positionTir in PositionsOccupeesBateau:
         PositionsOccupeesBateau.remove(positionTir)
         print("Touché")
+        
     else:
         print("Manqué")
     
