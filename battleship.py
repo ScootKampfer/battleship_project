@@ -3,6 +3,8 @@ import random
 POSITIONSX = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 POSITIONSY = ['1','2','3','4','5','6','7','8','9','10']
 PositionsOccupeesBateau = []
+PositionsEssayees = []
+e = 0
 
 def checkterritory():
 
@@ -13,7 +15,6 @@ def checkterritory():
             break
         PositionsOccupeesBateau.append(str(i))
     TerritoryVerified = True
-
 
 def poserbateau(boatlength):
 
@@ -26,6 +27,7 @@ def poserbateau(boatlength):
     positionDebut = [random.choice(POSITIONSX[-1+boatlength:11-boatlength]) ,random.choice(POSITIONSY[-1+boatlength:11-boatlength])]
     PositionsPotentiels.append(str().join(positionDebut))
     orientation = random.randint(1,4)
+
     while TerritoryVerified == False:
 
         while n < boatlength:
@@ -49,6 +51,41 @@ def poserbateau(boatlength):
 
         checkterritory()
 
+def checkvalidcoordinate():
+
+    global positionTir
+    AttackVerified = False
+
+    while AttackVerified == False:
+        positionTir = list(input("Ou voulez-vous tirer? S'il vous plait entrez les coordonnées comme ça: A1, J9: ").capitalize())
+        
+        if len(positionTir) < 2:
+            continue
+
+        if len(positionTir) > 2:
+            positionTir[1] = positionTir[1]+positionTir[2]
+            positionTir = positionTir [0:2]
+
+        if positionTir[0] in POSITIONSX and positionTir[1] in POSITIONSY:
+            positionTir = str().join(positionTir)
+            AttackVerified = True
+
+        if positionTir in PositionsEssayees:
+            AttackVerified = False
+            continue
+
+def checkiftouched():
+
+    PositionsEssayees.append(positionTir)
+
+    if positionTir in PositionsOccupeesBateau:
+        PositionsOccupeesBateau.remove(positionTir)
+        print("Touché")
+
+    else:
+        print("Manqué")
+    
+
 while len(PositionsOccupeesBateau) != 17:
     PositionsOccupeesBateau.clear()
     poserbateau(5)
@@ -57,16 +94,12 @@ while len(PositionsOccupeesBateau) != 17:
     poserbateau(3)
     poserbateau(2)
 
-# positionTir = list(input("Ou voulez-vous tirer ex: A1, J9?: ").capitalize())
+while True:
 
+    checkvalidcoordinate()
+    checkiftouched()
+    e += 1
 
-# if positionTir[0] in POSITIONSX and positionTir[1] in POSITIONSY:
-
-    #sleep(0.00000001)
-
-#else:
-    #positionTir = list(input("S'il vous plait, ?: ").capitalize())
-    
-
-# Partie "relation" (Juju)
-
+    if len(PositionsOccupeesBateau) == 0:
+        print(f"Bravo, tu as gagné avec {e} essais!")
+        exit()
