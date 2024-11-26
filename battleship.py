@@ -25,8 +25,8 @@ def identification(i, POSITIONS, type_de_lettres):
             else:
                 turtle.setpos(-314+(i*54), 335)
 
-    
-    turtle.write(POSITIONS[i], font=("Arial", 30, "normal"))
+    if i != 10:
+        turtle.write(POSITIONS[i], font=("Arial", 30, "normal"))
 
 def createmap():
     j = 0
