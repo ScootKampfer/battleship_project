@@ -3,18 +3,33 @@ from time import sleep
 POSITIONSX = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 POSITIONSY = ['1','2','3','4','5','6','7','8','9','10']
 
-def identificationlettres(i, POSITIONSX):
+def identificationlettres(i, POSITIONS):
 
-    turtle.penup()
-    turtle.setpos(-364, 275-((i)*63))
-    turtle.write(POSITIONSX[i], font=("Arial", 30, "normal"))
+    if i == 9:
 
-def identificationchiffres(i, POSITIONSY):
+        turtle.penup()
+        turtle.setpos(-382, 275-((i)*63))
+        turtle.write(POSITIONS[i], font=("Arial", 30, "normal"))
+    
+    else:
+        turtle.penup()
+        turtle.setpos(-364, 275-((i)*63))
+        turtle.write(POSITIONS[i], font=("Arial", 30, "normal"))
+
+def identificationchiffres(i, POSITIONS):
 
     if i < 10:
-        turtle.penup()
-        turtle.setpos(-314+(i*54), 335)
-        turtle.write(POSITIONSY[i], font=("Arial", 30, "normal"))
+        if i == 8:
+        
+            turtle.penup()
+            turtle.setpos(-302+(i*54), 335)
+            turtle.write(POSITIONS[i], font=("Arial", 30, "normal"))
+
+        else:
+
+            turtle.penup()
+            turtle.setpos(-314+(i*54), 335)
+            turtle.write(POSITIONS[i], font=("Arial", 30, "normal"))
 
 def createmap():
     j = 0
@@ -27,7 +42,6 @@ def createmap():
     while j < 11:
         i = 0
         k = -324 + (j*54)
-        print(f"For the {j+1} time, here is the value of x: {k}")
         turtle.penup()
         turtle.setpos(k, 325)
         turtle.pos()
@@ -37,7 +51,7 @@ def createmap():
             turtle.pos()
             turtle.pendown()
             if j == 0:
-                identificationlettres(i, POSITIONSX)
+                identificationlettres(i, POSITIONSY)
                 turtle.setpos(k, 325-(i*70))
                 turtle.pendown()
             i += 1
@@ -47,7 +61,6 @@ def createmap():
 
         i = 0
         a = 325-(l*63)
-        print(f"For the {l+1} time, here is the value of y: {a}")
         turtle.penup()
         turtle.setpos(-324, a)
         turtle.pos()
@@ -57,10 +70,12 @@ def createmap():
             turtle.pos()
             turtle.pendown()
             if l == 0:
-                identificationchiffres(i, POSITIONSY)
+                identificationchiffres(i, POSITIONSX)
                 turtle.setpos(-324-(i*-54), a)
                 turtle.pendown()
 
             i += 1
         l += 1
     turtle.hideturtle()
+
+createmap()
