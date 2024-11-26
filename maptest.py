@@ -5,10 +5,16 @@ POSITIONSY = ['1','2','3','4','5','6','7','8','9','10']
 
 def identificationlettres(i, POSITIONSX):
 
-
     turtle.penup()
     turtle.setpos(-364, 275-((i)*63))
     turtle.write(POSITIONSX[i], font=("Arial", 30, "normal"))
+
+def identificationchiffres(i, POSITIONSY):
+
+    if i < 10:
+        turtle.penup()
+        turtle.setpos(-314+(i*54), 335)
+        turtle.write(POSITIONSY[i], font=("Arial", 30, "normal"))
 
 def createmap():
     j = 0
@@ -50,9 +56,11 @@ def createmap():
             turtle.setpos(-324-(i*-54), a)
             turtle.pos()
             turtle.pendown()
+            if l == 0:
+                identificationchiffres(i, POSITIONSY)
+                turtle.setpos(-324-(i*-54), a)
+                turtle.pendown()
+
             i += 1
         l += 1
-
-createmap()
-
-sleep(3)
+    turtle.hideturtle()
