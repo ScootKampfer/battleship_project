@@ -1,5 +1,6 @@
 import random
 from termcolor import colored
+from battleshipmap import createmap
 
 POSITIONSX = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 POSITIONSY = ['1','2','3','4','5','6','7','8','9','10']
@@ -85,6 +86,8 @@ def checkiftouched():
 
     else:
         print("Manqué")  
+
+createmap()
 
 while len(PositionsOccupeesBateau) != 17:
     PositionsOccupeesBateau.clear()

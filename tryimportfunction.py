@@ -1,3 +1,3 @@
-from maptest import createmap
+from battleshipmap import createmap
 
 createmap()

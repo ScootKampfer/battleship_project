@@ -78,4 +78,10 @@ def createmap():
         l += 1
     turtle.hideturtle()
 
-createmap()
+def marktouched():
+
+    print(1)
+
+def markmissed():
+
+    print(2)
