@@ -1,9 +1,16 @@
 import random
 import turtle
+from termcolor import colored
+from time import sleep
 
 POSITIONSX = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 POSITIONSY = ['1','2','3','4','5','6','7','8','9','10']
 PositionsOccupeesBateau = []
+listbateau1 = []
+listbateau2 = []
+listbateau3 = []
+listbateau4 = []
+listbateau5 = []
 PositionsEssayees = []
 e = 0
 
@@ -94,25 +101,16 @@ def mark(positionasked, status):
         turtle.color("black")
         turtle.write("M", font=("Arial", 20, "normal"))
 
-def checkterritory():
-
-    global TerritoryVerified
-
-    for i in PositionsPotentiels:
-        if i in PositionsOccupeesBateau:
-            break
-        PositionsOccupeesBateau.append(str(i))
-    TerritoryVerified = True
-
-def poserbateau(boatlength):
+def poserbateau(boatlength, listebateau):
 
     global TerritoryVerified
     global PositionsPotentiels
+    global PositionsOccupeesBateau
     TerritoryVerified = False
     n = 1
     positionFin = []
     PositionsPotentiels = []
-    positionDebut = [random.choice(POSITIONSX[-1+boatlength:11-boatlength]) ,random.choice(POSITIONSY[-1+boatlength:11-boatlength])]
+    positionDebut = [random.choice(POSITIONSX[-2+boatlength:11-boatlength]) ,random.choice(POSITIONSY[-2+boatlength:11-boatlength])]
     PositionsPotentiels.append(str().join(positionDebut))
     orientation = random.randint(1,4)
 
@@ -133,11 +131,18 @@ def poserbateau(boatlength):
                 
                 case 4: #Ouest
                     positionFin = [POSITIONSX[POSITIONSX.index(positionDebut[0]) - n], positionDebut[1]]
-  
+            
             PositionsPotentiels.append(str().join(positionFin))
             n += 1
 
-        checkterritory()
+        for i in PositionsPotentiels:
+            if i in PositionsOccupeesBateau:
+                listebateau.clear()
+                break
+            if str(i) not in PositionsOccupeesBateau:
+                listebateau.append(str(i))
+            PositionsOccupeesBateau.append(str(i))
+        TerritoryVerified = True
 
 def checkvalidcoordinate():
 
@@ -162,6 +167,12 @@ def checkvalidcoordinate():
             AttackVerified = False
             continue
 
+def checkmyboat(listbateaux):
+    if positionTir in listbateaux:
+        listbateaux.remove(positionTir)
+        if len(listbateaux) == 0:
+                print(colored("\nEt c'est touché coulé!!! :)\n", "green"))
+
 def checkiftouched():
 
     PositionsEssayees.append(positionTir)
@@ -169,19 +180,33 @@ def checkiftouched():
     if positionTir in PositionsOccupeesBateau:
         PositionsOccupeesBateau.remove(positionTir)
         mark(positionTir, "Touched")
+        print(colored("Bravo, vous avez touché un bateau!", "red"))
+
+        checkmyboat(listbateau1)
+        checkmyboat(listbateau2)
+        checkmyboat(listbateau3)
+        checkmyboat(listbateau4)
+        checkmyboat(listbateau5)
 
     else:
         mark(positionTir, "Missed")
+        print(colored("Manqué! Réessayer!","blue"))
 
 createmap()
 
 while len(PositionsOccupeesBateau) != 17:
     PositionsOccupeesBateau.clear()
-    poserbateau(5)
-    poserbateau(4)
-    poserbateau(3)
-    poserbateau(3)
-    poserbateau(2)
+    poserbateau(5, listbateau1)
+    poserbateau(4, listbateau2)
+    poserbateau(3, listbateau3)
+    poserbateau(3, listbateau4)
+    poserbateau(2, listbateau5)
+
+print(listbateau1)
+print(listbateau2)
+print(listbateau3)
+print(listbateau4)
+print(listbateau5)
 
 while True:
 
@@ -191,4 +216,5 @@ while True:
 
     if len(PositionsOccupeesBateau) == 0:
         print(f"Bravo, tu as gagné avec {e} essais!")
+        sleep(3)
         exit()
