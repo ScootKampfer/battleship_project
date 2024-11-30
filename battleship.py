@@ -132,7 +132,7 @@ def poserbateau(boatlength):
                     positionFin = [positionDebut[0], str(POSITIONSY[POSITIONSY.index(positionDebut[1])+n])]
 
                 case 2: #Sud
-                    positionFin = [positionDebut[0], str(POSITIONSY[POSITIONSY.index(positionDebut[1])+n])]
+                    positionFin = [positionDebut[0], str(POSITIONSY[POSITIONSY.index(positionDebut[1])-n])]
                 
                 case 3: #Est 
                     positionFin = [POSITIONSX[POSITIONSX.index(positionDebut[0]) + n], positionDebut[1]]
