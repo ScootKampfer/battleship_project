@@ -205,7 +205,7 @@ def checkiftouched():
     if positionTir in Torpilleur:
         Torpilleur.remove(positionTir)
         if len(Torpilleur) == 0:
-         print(colored("Coulé!", "green"))
+            print(colored("Coulé!", "green"))
     
 
 
