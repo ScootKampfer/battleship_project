@@ -88,7 +88,7 @@ def mark(positionasked, status):
     turtle.setpos(x, y)
     turtle.pos()
     turtle.pendown()
-    if status == "Touché!":
+    if status == "Touché":
         turtle.color("red")
         turtle.write("X", font=("Arial", 20, "normal"))
     elif status == "Manqué!":
