@@ -116,14 +116,13 @@ def poserbateau(boatlength):
     PositionsPotentiels = []
     positionsBateauChoisi = []
     positionsBateauChoisi.clear()
-    positionDebut = [random.choice(POSITIONSX[-1+boatlength:11-boatlength]) ,random.choice(POSITIONSY[-1+boatlength:11-boatlength])]
-    positionsBateauChoisi.append(str().join(positionDebut))
-    PositionsPotentiels.append(str().join(positionDebut))
-    orientation = random.randint(1,4)
 
     while TerritoryVerified == False:
-    
 
+        positionDebut = [random.choice(POSITIONSX[-1+boatlength:11-boatlength]) ,random.choice(POSITIONSY[-1+boatlength:11-boatlength])]
+        positionsBateauChoisi.append(str().join(positionDebut))
+        PositionsPotentiels.append(str().join(positionDebut))
+        orientation = random.randint(1,4)
         while n < boatlength:
 
             match orientation:
