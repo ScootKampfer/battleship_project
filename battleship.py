@@ -6,6 +6,11 @@ POSITIONSX = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 POSITIONSY = ['1','2','3','4','5','6','7','8','9','10']
 PositionsOccupeesBateau = []
 PositionsEssayees = []
+Porte_Avion = []
+Croiseur = []
+Contre_Torpilleur = []
+Sous_Marin = []
+Torpilleur = []
 e = 0
 
 screen = turtle.Screen()
@@ -146,7 +151,7 @@ def poserbateau(boatlength):
             positionsBateauChoisi.append(str().join(positionFin))
             n += 1
 
-        checkterritory()     
+        checkterritory() 
 
 def checkvalidcoordinate():
 
@@ -171,6 +176,13 @@ def checkvalidcoordinate():
             AttackVerified = False
             continue
 
+def checkifcoule(boatlist):
+
+    if positionTir in boatlist:
+        boatlist.remove(positionTir)
+        if len(boatlist) == 0:
+           print(colored("Coulé!","green")) 
+
 def checkiftouched():
 
     PositionsEssayees.append(positionTir)
@@ -179,42 +191,20 @@ def checkiftouched():
         PositionsOccupeesBateau.remove(positionTir)
         mark(positionTir, "Touché")
         print(colored("Touché","red"))
+        checkifcoule(Porte_Avion)
+        checkifcoule(Croiseur)  
+        checkifcoule(Contre_Torpilleur) 
+        checkifcoule(Sous_Marin)
+        checkifcoule(Torpilleur)
 
     else:
         mark(positionTir, "Manqué!")
         print(colored("Manqué!","blue"))
-
-    if positionTir in Porte_Avion:
-        Porte_Avion.remove(positionTir)
-        if len(Porte_Avion) == 0:
-           print(colored("Coulé!","green"))
-
-    if positionTir in Croiseur:
-        Croiseur.remove(positionTir)
-        if len(Croiseur) == 0:
-           print(colored("Coulé!", "green"))
-
-    if positionTir in Contre_Torpilleur:
-        Contre_Torpilleur.remove(positionTir)
-        if len(Contre_Torpilleur) == 0:
-            print(colored("Coulé!", "green"))
     
-    if positionTir in Sous_Marin:
-        Sous_Marin.remove(positionTir)
-        if len(Sous_Marin) == 0:
-            print(colored("Coulé!", "green"))
-
-    if positionTir in Torpilleur:
-        Torpilleur.remove(positionTir)
-        if len(Torpilleur) == 0:
-            print(colored("Coulé!", "green"))
-    
-
-
-
 createmap()
 
 while len(PositionsOccupeesBateau) != 17:
+
     PositionsOccupeesBateau.clear()
     poserbateau(5)
     Porte_Avion = positionsBateauChoisi
@@ -227,19 +217,11 @@ while len(PositionsOccupeesBateau) != 17:
     poserbateau(2)
     Torpilleur = positionsBateauChoisi
 
-#print(PositionsOccupeesBateau)  Debug
-#print(Porte_Avion)
-#print(Croiseur)
-#print(Contre_Torpilleur)   
-#print(Sous_Marin)
-#print(Torpilleur)
-
 while True:
 
     checkvalidcoordinate()
     checkiftouched()
     e += 1
-    #print(PositionsOccupeesBateau)  Debug
 
     if len(PositionsOccupeesBateau) == 0:
         print(f"Bravo, tu as gagné avec {e} essais!")
