@@ -8,6 +8,9 @@ PositionsOccupeesBateau = []
 PositionsEssayees = []
 e = 0
 
+screen = turtle.Screen()
+screen.tracer(0,0)
+
 def identification(i, POSITIONS, type_de_lettres):
     
     turtle.penup()
@@ -75,6 +78,7 @@ def createmap():
         l += 1
         
     turtle.hideturtle()
+    screen.update()
 
 def mark(positionasked, status):
 
@@ -114,7 +118,7 @@ def poserbateau(boatlength):
     n = 1
     positionFin = []
     PositionsPotentiels = []
-    positionsBateauChoisi.clear()
+    positionsBateauChoisi = []
 
     while TerritoryVerified == False:
 
