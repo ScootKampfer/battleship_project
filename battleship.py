@@ -1,6 +1,5 @@
 import random
 import turtle
-from termcolor import colored
 
 POSITIONSX = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 POSITIONSY = ['1','2','3','4','5','6','7','8','9','10']
@@ -88,10 +87,10 @@ def mark(positionasked, status):
     turtle.setpos(x, y)
     turtle.pos()
     turtle.pendown()
-    if status == "Touché":
+    if status == "Touched":
         turtle.color("red")
         turtle.write("X", font=("Arial", 20, "normal"))
-    elif status == "Manqué!":
+    elif status == "Missed":
         turtle.color("black")
         turtle.write("M", font=("Arial", 20, "normal"))
 
@@ -107,21 +106,18 @@ def checkterritory():
 
 def poserbateau(boatlength):
 
-    global positionsBateauChoisi
     global TerritoryVerified
     global PositionsPotentiels
     TerritoryVerified = False
     n = 1
     positionFin = []
     PositionsPotentiels = []
-    positionsBateauChoisi.clear()
+    positionDebut = [random.choice(POSITIONSX[-1+boatlength:11-boatlength]) ,random.choice(POSITIONSY[-1+boatlength:11-boatlength])]
+    PositionsPotentiels.append(str().join(positionDebut))
+    orientation = random.randint(1,4)
 
     while TerritoryVerified == False:
 
-        positionDebut = [random.choice(POSITIONSX[-1+boatlength:11-boatlength]) ,random.choice(POSITIONSY[-1+boatlength:11-boatlength])]
-        positionsBateauChoisi.append(str().join(positionDebut))
-        PositionsPotentiels.append(str().join(positionDebut))
-        orientation = random.randint(1,4)
         while n < boatlength:
 
             match orientation:
@@ -130,7 +126,7 @@ def poserbateau(boatlength):
                     positionFin = [positionDebut[0], str(POSITIONSY[POSITIONSY.index(positionDebut[1])+n])]
 
                 case 2: #Sud
-                    positionFin = [positionDebut[0], str(POSITIONSY[POSITIONSY.index(positionDebut[1])-n])]
+                    positionFin = [positionDebut[0], str(POSITIONSY[POSITIONSY.index(positionDebut[1])+n])]
                 
                 case 3: #Est 
                     positionFin = [POSITIONSX[POSITIONSX.index(positionDebut[0]) + n], positionDebut[1]]
@@ -139,10 +135,9 @@ def poserbateau(boatlength):
                     positionFin = [POSITIONSX[POSITIONSX.index(positionDebut[0]) - n], positionDebut[1]]
   
             PositionsPotentiels.append(str().join(positionFin))
-            positionsBateauChoisi.append(str().join(positionFin))
             n += 1
 
-        checkterritory()     
+        checkterritory()
 
 def checkvalidcoordinate():
 
@@ -173,69 +168,26 @@ def checkiftouched():
 
     if positionTir in PositionsOccupeesBateau:
         PositionsOccupeesBateau.remove(positionTir)
-        mark(positionTir, "Touché")
-        print(colored("Touché","red"))
+        mark(positionTir, "Touched")
 
     else:
-        mark(positionTir, "Manqué!")
-        print(colored("Manqué!","blue"))
-
-    if positionTir in Porte_Avion:
-        Porte_Avion.remove(positionTir)
-        if len(Porte_Avion) == 0:
-           print(colored("Coulé!","green"))
-
-    if positionTir in Croiseur:
-        Croiseur.remove(positionTir)
-        if len(Croiseur) == 0:
-           print(colored("Coulé!", "green"))
-
-    if positionTir in Contre_Torpilleur:
-        Contre_Torpilleur.remove(positionTir)
-        if len(Contre_Torpilleur) == 0:
-            print(colored("Coulé!", "green"))
-    
-    if positionTir in Sous_Marin:
-        Sous_Marin.remove(positionTir)
-        if len(Sous_Marin) == 0:
-            print(colored("Coulé!", "green"))
-
-    if positionTir in Torpilleur:
-        Torpilleur.remove(positionTir)
-        if len(Torpilleur) == 0:
-            print(colored("Coulé!", "green"))
-    
-
-
+        mark(positionTir, "Missed")
 
 createmap()
 
 while len(PositionsOccupeesBateau) != 17:
     PositionsOccupeesBateau.clear()
     poserbateau(5)
-    Porte_Avion = positionsBateauChoisi
     poserbateau(4)
-    Croiseur = positionsBateauChoisi
     poserbateau(3)
-    Contre_Torpilleur = positionsBateauChoisi
     poserbateau(3)
-    Sous_Marin = positionsBateauChoisi
     poserbateau(2)
-    Torpilleur = positionsBateauChoisi
-
-#print(PositionsOccupeesBateau)  Debug
-#print(Porte_Avion)
-#print(Croiseur)
-#print(Contre_Torpilleur)   
-#print(Sous_Marin)
-#print(Torpilleur)
 
 while True:
 
     checkvalidcoordinate()
     checkiftouched()
     e += 1
-    #print(PositionsOccupeesBateau)  Debug
 
     if len(PositionsOccupeesBateau) == 0:
         print(f"Bravo, tu as gagné avec {e} essais!")
