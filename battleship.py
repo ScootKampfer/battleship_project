@@ -114,7 +114,6 @@ def poserbateau(boatlength):
     n = 1
     positionFin = []
     PositionsPotentiels = []
-    positionsBateauChoisi = []
     positionsBateauChoisi.clear()
 
     while TerritoryVerified == False:
